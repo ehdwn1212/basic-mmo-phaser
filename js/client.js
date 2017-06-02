@@ -10,6 +10,26 @@ Client.sendTest = function(){
     Client.socket.emit('test');
 };
 
+Client.sendMoveLeft = function(){
+    console.log("moveLeft sent");
+    Client.socket.emit('moveLeft');
+};
+
+Client.sendMoveRight = function(){
+    console.log("moveRight sent");
+    Client.socket.emit('moveRight');
+};
+
+Client.sendMoveUp = function(){
+    console.log("moveUp sent");
+    Client.socket.emit('moveUp');
+};
+
+Client.sendMoveDown = function(){
+    console.log("moveDown sent");
+    Client.socket.emit('moveDown');
+};
+
 Client.askNewPlayer = function(){
     Client.socket.emit('newplayer');
 };

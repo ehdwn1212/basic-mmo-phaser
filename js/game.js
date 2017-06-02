@@ -20,7 +20,15 @@ Game.preload = function() {
 
 Game.create = function(){
     Game.playerMap = {};
-    var testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    const testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    const leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    const rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    const upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    const downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    rightKey.onPress.add(Client.sendMoveRight, this);
+    leftKey.onPress.add(Client.sendMoveLeft, this);
+    upKey.onPress.add(Client.sendMoveUp, this);
+    downKey.onPress.add(Client.sendMoveDown, this);
     testKey.onDown.add(Client.sendTest, this);
     var map = game.add.tilemap('map');
     map.addTilesetImage('tilesheet', 'tileset'); // tilesheet is the key of the tileset in map's JSON file

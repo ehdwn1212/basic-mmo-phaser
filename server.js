@@ -19,6 +19,8 @@ server.listen(process.env.PORT || 8081,function(){
     console.log('Listening on '+server.address().port);
 });
 
+const moveDist = 10;
+
 io.on('connection',function(socket){
 
     socket.on('newplayer',function(){
@@ -35,6 +37,12 @@ io.on('connection',function(socket){
             socket.player.x = data.x;
             socket.player.y = data.y;
             io.emit('move',socket.player);
+        });
+
+        socket.on('moveRight', function(data){
+            console.log('move right');
+            socket.player.x += moveDist;
+            io.emit('move', socket.player);
         });
 
         socket.on('disconnect',function(){
