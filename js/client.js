@@ -2,7 +2,14 @@
  * Created by Jerome on 03-03-17.
  */
 
-var Client = {};
+const Client = {};
+const movingTime = 250;
+let moveRightInterval;
+let moveLeftInterval;
+let moveUpInterval;
+let moveDownInterval;
+let moving;
+
 Client.socket = io.connect(); // By default to localhost?
 
 Client.sendTest = function(){
@@ -11,23 +18,63 @@ Client.sendTest = function(){
 };
 
 Client.sendMoveLeft = function(){
-    console.log("moveLeft sent");
-    Client.socket.emit('moveLeft');
+    if ( !moving ) {
+        moving = true;
+        Client.socket.emit('moveLeft');
+        moveLeftInterval = setInterval( () => {
+            Client.socket.emit('moveLeft');
+        }, movingTime);
+    }
+};
+
+Client.stopMoveLeft = function(){
+    moving = false;
+    clearInterval(moveLeftInterval);
 };
 
 Client.sendMoveRight = function(){
-    console.log("moveRight sent");
-    Client.socket.emit('moveRight');
+    if ( !moving ) {
+        moving = true;
+        Client.socket.emit('moveRight');    
+        moveRightInterval = setInterval( () => {
+            Client.socket.emit('moveRight');    
+        }, movingTime);
+    } 
+};
+
+Client.stopMoveRight = function(){
+    moving = false;
+    clearInterval(moveRightInterval);
 };
 
 Client.sendMoveUp = function(){
-    console.log("moveUp sent");
-    Client.socket.emit('moveUp');
+    if ( !moving ) {
+        moving = true;
+        Client.socket.emit('moveUp');
+        moveUpInterval = setInterval( () => {
+            Client.socket.emit('moveUp');
+        }, movingTime);
+    }
+};
+
+Client.stopMoveUp = function(){
+    moving = false;
+    clearInterval(moveUpInterval);  
 };
 
 Client.sendMoveDown = function(){
-    console.log("moveDown sent");
-    Client.socket.emit('moveDown');
+    if ( !moving ) {
+        moving = true;
+        Client.socket.emit('moveDown');
+        moveDownInterval = setInterval( () => {
+            Client.socket.emit('moveDown');
+        }, movingTime);
+    }
+};
+
+Client.stopMoveDown = function(){
+    moving = false;
+    clearInterval(moveDownInterval);
 };
 
 Client.askNewPlayer = function(){

@@ -25,10 +25,14 @@ Game.create = function(){
     const rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     const upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
     const downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    rightKey.onPress.add(Client.sendMoveRight, this);
-    leftKey.onPress.add(Client.sendMoveLeft, this);
-    upKey.onPress.add(Client.sendMoveUp, this);
-    downKey.onPress.add(Client.sendMoveDown, this);
+    rightKey.onDown.add(Client.sendMoveRight, this);
+    rightKey.onUp.add(Client.stopMoveRight, this);
+    leftKey.onDown.add(Client.sendMoveLeft, this);
+    leftKey.onUp.add(Client.stopMoveLeft, this);
+    upKey.onDown.add(Client.sendMoveUp, this);
+    upKey.onUp.add(Client.stopMoveUp, this);
+    downKey.onDown.add(Client.sendMoveDown, this);
+    downKey.onUp.add(Client.stopMoveDown, this);
     testKey.onDown.add(Client.sendTest, this);
     var map = game.add.tilemap('map');
     map.addTilesetImage('tilesheet', 'tileset'); // tilesheet is the key of the tileset in map's JSON file
